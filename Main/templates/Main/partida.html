@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+    <title>Tokyo 2020 - Database</title>
+
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="{% static "css/materialize.css" %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="{% static "css/style.css" %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  </head>
+  <body>
+    <header>
+      <nav class="blue darken-2" role="navigation">
+        <div class="nav-wrapper container"><a id="logo-container" href="{% url 'index' %}" class="brand-logo">Tokyo 2020</a>
+          <ul class="right hide-on-med-and-down">
+            <li><a class='dropdown-button ' data-activates='dropdown1' href="#">Habilitado a Arbitrar</a>
+              <ul id='dropdown1' class='dropdown-content'>
+                <li class="white"><a href="{% url 'arbitra_see' %}" class="light-green-text text-darken-2">Consulta</a></li>
+                <li class="white"><a href="{% url 'arbitra_altera' %}" class="light-green-text text-darken-2">Adiciona</a></li>
+                <li class="white"><a href="{% url 'arbitra_remove' %}" class="light-green-text text-darken-2">Remove</a></li>
+              </ul> 
+            </li>
+
+          </ul>
+
+          <ul id="nav-mobile" class="side-nav">
+            <li><a href="{% url 'arbitra_see' %}">Ver Habilitado a Arbitrar</a></li>
+            <li><a href="{% url 'arbitra_altera' %}">Adiciona Habilitado a Arbitrar</a></li>
+            <li><a href="{% url 'arbitra_remove' %}">Remove Habilitado a Arbitrar</a></li>
+            <li><a href="{% url 'partida' %}">Partida</a></li>
+          </ul>
+          <ul class="right hide-on-med-and-down">
+
+            <li><a href="{% url 'partida' %}">Partida</a></li>
+          </ul>
+
+          <ul id="nav-mobile" class="side-nav">
+            <li><a href="{% url 'arbitra_see' %}">Navbar Link</a></li>
+          </ul>
+
+          <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+        </div>
+      </nav>
+    </header>
+    <main>
+
+      <div class="container">
+        {% if data %}
+        <table class="highlight">
+          <thead>
+            <tr>
+              <th data-field="nome">Nome</th>
+              <th data-field="name">Numero Jogos</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for i in data%}
+            <tr>
+              <td> {{ i.0}}</td>
+              <td> {{ i.1}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% endif %}
+        <form action="{% url 'pdf2go' %}" method="GET">
+          {% csrf_token %}
+          <button id="submit" class="waves-effect waves-light btn" value="Click" onclick="2pdf()" >button</a>
+        </form>
+
+      </div>
+    </main>
+    <footer class="page-footer light-green darken-2">
+      <div class="container">
+        <div class="row">
+          <div class="col l3 s12">
+            <h5 class="white-text">Resources</h5>
+          </div>
+        </div>
+          <div class="row">
+            <ul>
+              <div class="col l3 s12">
+                <li><a class="white-text" href="https://www.oracle.com/index.html">Oracle Database</a></li>
+              </div>
+              <div class="col l3 s12">
+                <li><a class="white-text" href="https://www.djangoproject.com/">Django</a></li>
+              </div>
+              <div class="col l3 s12">
+                <li><a class="white-text" href="http://materializecss.com/">Materialize</a></li>
+              </div>
+              <div class="col l3 s12">
+                <li><a class="white-text" href="https://www.python.org/">Python</a></li>
+              </div>
+            </ul>
+          </div>
+      </div>
+      <div class="footer-copyright">
+        <div class="container">
+          <div class="row">
+            <div class="col s3 ">
+              Pedro Morello Abbud 
+            </div>
+            <div class="col s3 ">
+              Danilo Barbosa Porto
+            </div>
+            <div class="col s3 ">
+              Gustavo Rocha Spena
+            </div>
+            <div class="col s3 ">
+              Xoel Lopez Barata 
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </footer>
+
+
+    <!--  Scripts-->
+
+    <script>
+      function 2pdf(){
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', "{% url 'pdf2go' %}", true);
+        xhr.send();
+      }
+    </script>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="{% static "js/materialize.js" %}"></script>
+    <script src="{% static "js/init.js" %}"></script>
+
+
+  </body>
+</html>

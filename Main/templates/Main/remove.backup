@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+    <title>Tokyo 2020 - Database</title>
+
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="{% static "css/materialize.css" %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="{% static "css/style.css" %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  </head>
+  <body>
+    <header>
+      <nav class="blue darken-2" role="navigation">
+        <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Tokyo 2020</a>
+          <ul class="right hide-on-med-and-down">
+            <li><a class='dropdown-button ' data-activates='dropdown1' href="#">Habilitado a Arbitrar</a>
+              <ul id='dropdown1' class='dropdown-content'>
+                <li class="white"><a href="{% url 'arbitra_see' %}" class="light-green-text text-darken-2">Consulta</a></li>
+                <li class="white"><a href="{% url 'arbitra_altera' %}" class="light-green-text text-darken-2">Altera</a></li>
+                <li class="white"><a href="{% url 'arbitra_remove' %}" class="light-green-text text-darken-2">Remove</a></li>
+              </ul> 
+            </li>
+
+          </ul>
+
+          <ul id="nav-mobile" class="side-nav">
+            <li><a href="{% url 'arbitra_see' %}">Ver Habilitado a Arbitrar</a></li>
+            <li><a href="{% url 'arbitra_altera' %}">Altera Habilitado a Arbitrar</a></li>
+            <li><a href="{% url 'arbitra_remove' %}">Remove Habilitado a Arbitrar</a></li>
+            <li><a href="{% url 'partida' %}">Partida</a></li>
+          </ul>
+          <ul class="right hide-on-med-and-down">
+            <li><a href="#">Partida</a></li>
+          </ul>
+
+          <ul id="nav-mobile" class="side-nav">
+            <li><a href="#">Navbar Link</a></li>
+          </ul>
+
+          <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+        </div>
+      </nav>
+    </header>
+    <main>
+
+      <div class="container">
+        <form action="arbitra_remove" method="post">
+          {% csrf_token %}
+          {{ form  }}
+        <div class="row">
+          <div class="col s12">
+            <div class="row">
+              <div class="push-s3 input-field col s6">
+                <i class="material-icons prefix">perm_identity</i>
+                <input type="number" id="identificacao" class="autocomplete ">
+                <label for="identificacao">Id</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="push-s3 input-field col s6">
+                <i class="material-icons prefix">assignment</i>
+                <input type="text" id="esporte" class="autocomplete">
+                <label for="esporte">Esporte</label>
+              </div>
+            </div>
+            <div class="row">
+                <button class="btn waves-effect waves-light push-s4 col s4 " type="submit" name="action">Submit
+                  <i class="material-icons right">send</i>
+                </div>
+            </button>
+          </div>
+        </div>
+      </main>
+      <footer class="page-footer light-green darken-2">
+        <div class="container">
+          <div class="row">
+            <div class="col l3 s12">
+              <h5 class="white-text">Resources</h5>
+            </div>
+          </div>
+          <div class="row">
+            <ul>
+              <div class="col l3 s12">
+                <li><a class="white-text" href="#!">Oracle Database</a></li>
+              </div>
+              <div class="col l3 s12">
+                <li><a class="white-text" href="#!">Django</a></li>
+              </div>
+              <div class="col l3 s12">
+                <li><a class="white-text" href="#!">Materialize</a></li>
+              </div>
+              <div class="col l3 s12">
+                <li><a class="white-text" href="#!">Python</a></li>
+              </div>
+            </ul>
+          </div>
+
+        </div>
+        <div class="footer-copyright">
+          <div class="container">
+            <div class="row">
+              <div class="col s3 ">
+                Pedro Morello Abbud 
+              </div>
+              <div class="col s3 ">
+                Danilo Barbosa Porto
+              </div>
+              <div class="col s3 ">
+                Gustavo Rocha Spena
+              </div>
+              <div class="col s3 ">
+                Xoel Lopez Barata 
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </footer>
+
+      <!--  Scripts-->
+
+    </script>
+    <script src="{% static "js/materialize.js" %}"></script>
+    <script src="{% static "js/init.js" %}"></script>
+    <script>
+      var id={}  ;
+var nome={};
+var esporte={};
+var teste="data:{"
+var temp;
+{% for a in data %}
+id["{{ a.0 }}"]=null;
+nome["{{ a.1 }}"]=null;
+esporte["{{ a.2 }}"]=null;
+{% endfor %}
+var idJson= JSON.stringify(id);
+var idTeste= JSON.parse(idJson);
+var nomeJson= JSON.stringify(nome);
+var esporteJson= JSON.stringify(esporte);
+var finalData = idJson.replace(/\\/g, "");
+    </script>
+    <script>
+      $(document).ready(function() {
+        $('#id').autocomplete({
+          data:id
+        });
+        $('#nome').autocomplete({
+          data:nome 
+        });
+        $('#esporte').autocomplete({
+          data:esporte
+        });
+
+    });</script>
+</body>
+</html>
