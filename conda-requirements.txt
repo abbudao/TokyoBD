@@ -1,0 +1,1 @@
+conda install -c https://conda.anaconda.org/anaconda cx_oracle
